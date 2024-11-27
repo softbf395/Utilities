@@ -28,11 +28,12 @@ local GasterBlaster = weapon:Create({
         -- Calculate direction and length
         local direction = (endPos - startPos).Unit
         local distance = (endPos - startPos).Magnitude
+        local sizeY =  (startPos - endPos).Magnitude
 
         -- Create the beam as a neon cylinder
         local beam = Instance.new("Part")
         beam.Shape = Enum.PartType.Cylinder
-        beam.Size = Vector3.new(0.5, distance, 0.5) -- Adjust width (X, Z) and length (Y)
+        beam.Size = Vector3.new(0.5, sizeY, 0.5) -- Adjust width (X, Z) and length (Y)
         beam.CFrame = CFrame.new(startPos, endPos) * CFrame.new(0, 0, -distance / 2) * CFrame.Angles(0, math.pi / 2, 0)
         beam.Anchored = true
         beam.CanCollide = false
