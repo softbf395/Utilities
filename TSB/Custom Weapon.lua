@@ -1,9 +1,9 @@
 local weapon = {}
 
--- Ensure the game is The Strongest Battlegrounds
-if game.PlaceId ~= 10449761463 then
-    game.Players.LocalPlayer:Kick("Game is not The Strongest Battlegrounds. TSB custom weapons only work in The Strongest Battlegrounds.")
-end
+-- Ensure the game is The Strongest Battlegrounds (UNUSED)
+--=====if game.PlaceId ~= 10449761463 then=====--
+ --=====   game.Players.LocalPlayer:Kick("Game is not The Strongest Battlegrounds. TSB custom weapons only work in The Strongest Battlegrounds.")======--
+--=====end=====--
 
 function weapon:Create(list)
     -- Validate the input list
