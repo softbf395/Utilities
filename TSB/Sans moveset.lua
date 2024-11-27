@@ -33,8 +33,8 @@ local GasterBlaster = weapon:Create({
         -- Create the beam as a neon cylinder
         local beam = Instance.new("Part")
         beam.Shape = Enum.PartType.Cylinder
-        beam.Size = Vector3.new(0.5, 0.5, distance) -- Adjust width (X, Z) and length (Y)
-        beam.CFrame = CFrame.new(startPos, endPos) * CFrame.new(0, 0, -distance / 2) * CFrame.Angles(0,( math.pi / 2)+90, 0)
+        beam.Size = Vector3.new(distance, 0.5, 0.5) -- Adjust width (X, Z) and length (Y)
+        beam.CFrame = CFrame.new(startPos, endPos) * CFrame.new(0, 0, -distance / 2) * CFrame.Angles(0,( math.pi ), 0)
         beam.Anchored = true
         beam.CanCollide = false
         beam.Material = Enum.Material.Neon
