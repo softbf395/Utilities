@@ -11,7 +11,7 @@ local Weapon1 = weapon:Create({
     cooldown = 3;
     action = function()
         local mouse=game.Players.LocalPlayer:GetMouse()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.Position=mouse.Hit.Position+Vector3.new(0,2,0)
+        game.Players.LocalPlayer.Character:PivotTo(mouse.Hit)
     end
 })
 
