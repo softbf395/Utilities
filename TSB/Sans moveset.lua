@@ -4,7 +4,7 @@ for _, move in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
   move:Destroy()
 end
 if not isfile("music/TSB/megalovania.mp3") then
-    savefile("music/TSB/megalovania.mp3", game:HttpGet("https://raw.githubusercontent.com/softbf395/tsbmoveassets/refs/heads/main/sans.mp3"))
+    writefile("music/TSB/megalovania.mp3", game:HttpGet("https://raw.githubusercontent.com/softbf395/tsbmoveassets/refs/heads/main/sans.mp3"))
 end
 local Music=getcustomasset("music/TSB/megalovania.mp3")
 local SoundMusic=Instance.new("Sound", workspace)
