@@ -42,5 +42,4 @@ local GasterBlaster = weapon:Create({
 
         -- Clean up the beam after a short delay
         game:GetService("Debris"):AddItem(beam, 0.5)
-    end
-})
+    end})
