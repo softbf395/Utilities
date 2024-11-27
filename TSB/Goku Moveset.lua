@@ -16,6 +16,8 @@ local Kamehameha = weapon:Create({
     -- Create energy ball effect at character's hand
     local energyBall = Instance.new("Part")
     energyBall.Shape = Enum.PartType.Ball
+      energyBall.Anchored=true
+      energyBall.Material="Neon"
     energyBall.Size = Vector3.new(0.5, 0.5, 0.5)
     local lookVector = character.HumanoidRootPart.CFrame.LookVector
     local offset = 2 -- Adjust this value to control the distance
@@ -24,14 +26,14 @@ local Kamehameha = weapon:Create({
     energyBall.Transparency = 0.7
     energyBall.Color = Color3.new(0,1,1)
     energyBall.Parent = workspace
-
+    game:GetService("TweenService"):Create(energyBall, TweenInfo.new(3) {Size=Vector3.new(1.5,1.5,1.5)
     -- Move the energy ball towards the target
     local targetPos = game.Players.LocalPlayer:GetMouse().Hit.Position
     local direction = (targetPos - energyBall.Position).Unit
     local speed = 50
-
+    wait(3)
     while energyBall and energyBall.Parent do
-      energyBall.CFrame = energyBall.CFrame + direction * speed * workspace.deltaTime
+      energyBall.CFrame = energyBall.CFrame + direction * speed
       task.wait()
     end
 
