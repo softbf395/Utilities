@@ -96,7 +96,7 @@ local BadTime = weapon:Create({
         -- Clean up the beam after a short delay
         game:GetService("Debris"):AddItem(beam, 0.5)
     end)
-        wait(20
+        wait(20)
        GasterBlaster:SetCallback(function()
         local player = game.Players.LocalPlayer
         local character = player.Character or player.CharacterAdded:Wait()
