@@ -3,7 +3,6 @@ local weapon = loadstring(game:HttpGet("https://raw.githubusercontent.com/softbf
 for _, move in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
   move:Destroy()
 end
-game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 
 -- Create a move
 local Weapon1 = weapon:Create({
