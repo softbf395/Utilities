@@ -37,6 +37,9 @@ function libUI:AddWindow(list)
 
     -- Function to add tabs to the UI
     function window:AddTab(tabInfo)
+        local offsetFrame=Instance.new("Frame", sf)
+        offsetFrame.Size=UDim2.new(1,0,0,450)
+        offsetFrame.BackgroundTransparency=1
         local Tab = {}
 
         local TabButton = Instance.new("TextButton", sf)
@@ -56,9 +59,11 @@ function libUI:AddWindow(list)
         TabButton.MouseButton1Click:Connect(function()
           if sf2open==true then
             Buttonscroll.Size=UDim2.new(1,0,0,0) -- no order change!
+                    offsetFrame.Size=UDim2.new(1,0,0,50)
             sf2open=false
           else
             Buttonscroll.Size=UDim2.new(1,0,0,400)
+                    offsetFrame.Size=UDim2.new(1,0,0,450)
               sf2open=true
             end
           end)
