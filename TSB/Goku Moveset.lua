@@ -26,7 +26,7 @@ local Kamehameha = weapon:Create({
     energyBall.Transparency = 0.7
     energyBall.Color = Color3.new(0,1,1)
     energyBall.Parent = workspace
-    game:GetService("TweenService"):Create(energyBall, TweenInfo.new(3) {Size=Vector3.new(1.5,1.5,1.5)
+    game:GetService("TweenService"):Create(energyBall, TweenInfo.new(3) {Size=Vector3.new(1.5,1.5,1.5)}):Play()
     -- Move the energy ball towards the target
     local targetPos = game.Players.LocalPlayer:GetMouse().Hit.Position
     local direction = (targetPos - energyBall.Position).Unit
