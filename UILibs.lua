@@ -46,8 +46,9 @@ function libUI:AddWindow(list)
         TabButton.TextColor3 = Color3.new(1, 1, 1)
         TabButton.Size=UDim2.new(1,0,0,50)
         TabButton.BorderSizePixel = 0
-        local Buttonscroll=Instance.new("ScrollingFrame", sf)
+        local Buttonscroll=Instance.new("ScrollingFrame", TabButton)
         Buttonscroll.BackgroundTransparency=1
+        Buttonscroll.Position=UDim2.new(0,0,0,50)
         Buttonscroll.CanvasSize=UDim2.new(0,0,100,0)
         Buttonscroll.Size=UDim2.new(1,0,0,400)
         ListLayout:Clone().Parent=Buttonscroll
