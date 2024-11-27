@@ -45,8 +45,8 @@ local GasterBlaster = weapon:Create({
     end
 })
 local BadTime = weapon:Create({
-         name = "Go Bad Time"
-         cooldown = math.huge
+         name = "Go Bad Time";
+         cooldown = math.huge;
          action = function()
                 GasterBlaster:SetCallback(function()
         local player = game.Players.LocalPlayer
