@@ -29,18 +29,18 @@ function weapon:Create(list)
 
     -- Tool properties
     local ToolScript = Instance.new("LocalScript", moveTool)
-    ToolScript.Source = [[
-        local cooldown = ]] .. cooldown .. [[
+    
+        local cooldown = cooldown
         local onCooldown = false
 
-        script.Parent.Activated:Connect(function()
+        moveTool.Activated:Connect(function()
             if onCooldown then
                 warn("Move is on cooldown!")
                 return
             end
 
             -- Trigger action
-            script.Parent:FindFirstChild("Action"):Fire()
+            moveTool:FindFirstChild("Action"):Fire()
 
             -- Set cooldown
             onCooldown = true
@@ -48,7 +48,7 @@ function weapon:Create(list)
                 onCooldown = false
             end)
         end)
-    ]]
+    
 
     -- Bind action to the tool
     local actionBindable = Instance.new("BindableEvent", moveTool)
