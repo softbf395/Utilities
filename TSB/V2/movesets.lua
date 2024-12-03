@@ -15,7 +15,7 @@ function utility:Ult(name, color, onActivation)
     end
     
     local ultText = game.Players.LocalPlayer.PlayerGui.ScreenGui.MagicHealth.TextLabel
-    local ultBar = ultText.Parent.Health.Bar.Fill
+    local ultBar = ultText.Parent.Health.Bar.Bar
     ultText.Text = name
     ultBar.ImageColor3 = color
     if onActivation then
