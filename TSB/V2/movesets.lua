@@ -79,7 +79,7 @@ function utility:Create(MID, Callback, CD, MName)
         return
     end
 
-    local moveSlot, err = pcall(function()
+    local success, moveSlot = pcall(function()
         return hotbar[tostring(MID)]
     end)
     if not moveSlot then
