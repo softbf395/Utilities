@@ -46,7 +46,7 @@ function customSlotCD(CD, MID)
       end
     end
 local tools={}
-function utility:ReqChr(Chrname)
+function utility:ReqChr(ChrName)
   if ChrName=="Saitama" then
     tools={"Normal Punch", "Consecutive Punches", "Shove", "Uppercut"}
   elseif ChrName=="Cyborg" then
@@ -103,3 +103,4 @@ function utility:SFX(music, url, path)
     Sound.SoundId=audioID
     return Sound
   end
+return utility
