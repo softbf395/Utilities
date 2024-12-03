@@ -83,7 +83,7 @@ function utility:Create(MID, Callback, CD, MName)
         return hotbar[tostring(MID)]
     end)
     if not success then
-        notif("Error:", err)
+        notif("Error:", moveSlot)
         return
     end
 
