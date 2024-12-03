@@ -83,6 +83,7 @@ end
     end end)
     moveSlot.Base.ToolName.Text=MName
     moveSlot.Base.Reuse.Visible=false
+	moveSlot.Visible=true
   else
   tools[MID].Activated:Connect(function() Callback() end)
   moveSlot.Base.ToolName.Text=MName
