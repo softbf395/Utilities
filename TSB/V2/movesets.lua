@@ -89,21 +89,21 @@ function utility:Create(MID, Callback, CD, MName)
 
     local isCustom = MID <= 4
     if isCustom then
-        moveSlot.Base.MouseButton1Click:Connect(function()
+        hotbar[tostring(MID)].Base.MouseButton1Click:Connect(function()
             if customSlotCD(CD, MID) then
                 Callback()
             end
         end)
-        moveSlot.Base.ToolName.Text = MName
-        moveSlot.Base.Reuse.Visible = false
-        moveSlot.Visible = true
+        hotbar[tostring(MID)].Base.ToolName.Text = MName
+        hotbar[tostring(MID)].Base.Reuse.Visible = false
+        hotbar[tostring(MID)].Visible = true
     else
-        moveSlot.Base.MouseButton1Click:Connect(function()
+        hotbar[tostring(MID)].Base.MouseButton1Click:Connect(function()
             if customSlotCD(CD, MID) then
                 Callback()
             end
         end)
-        moveSlot.Base.ToolName.Text = MName
+        hotbar[tostring(MID)].Base.ToolName.Text = MName
     end
 end
 
