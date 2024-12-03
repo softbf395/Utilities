@@ -98,8 +98,10 @@ function utility:Create(MID, Callback, CD, MName)
         moveSlot.Base.Reuse.Visible = false
         moveSlot.Visible = true
     else
-        tools[MID].Activated:Connect(function()
-            Callback()
+        moveSlot.Base.MouseButton1Click:Connect(function()
+            if customSlotCD(CD, MID) then
+                Callback()
+            end
         end)
         moveSlot.Base.ToolName.Text = MName
     end
