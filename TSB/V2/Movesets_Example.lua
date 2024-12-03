@@ -1,9 +1,9 @@
+local Moveset="T"
 local ms=loadstring(game:HttpGet("https://raw.githubusercontent.com/softbf395/Utilities/refs/heads/main/TSB/V2/movesets.lua"))()
 --local SFXM1=ms:SFX(false, "url", "path")
 --local SFXM2=ms:SFX(false, "url", "path")
 --local SFXM3=ms:SFX(false, "url", "path")
 --local SFXM4=ms:SFX(false, "url", "path")
-local Moveset="Template"
 local music=ms:SFX(true, "https://raw.githubusercontent.com/softbf395/Utilities/refs/heads/main/TSB/V2/NoCopyrightSounds%20-%20Boom%20Kitty%20%26%20Waterflame%20-%20Citadel%20Bass%20House%20NCS%20-%20Copyright%20Free%20Music.mp3", "music/TSB/Template")
 music:Play()
 ms:ReqChr("Saitama" --[[Cyborg]])
