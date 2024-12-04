@@ -87,7 +87,7 @@ function utility:Create(MID, Callback, CD, MName)
         return
     end
 
-    local isCustom = tonumber(MID) <= 4
+    local isCustom = not hotbar[tostring(MID)].Visible
     if isCustom then
         hotbar[tostring(MID)].Base.MouseButton1Click:Connect(function()
             if customSlotCD(CD, MID) then
