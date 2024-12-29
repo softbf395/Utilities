@@ -1,188 +1,200 @@
+-- UILib Module
 local UILib = {}
-local SavePath = nil
-local HttpService = game:GetService("HttpService")
-local CoreGui = game:GetService("CoreGui")
-local TweenService = game:GetService("TweenService")
-local UIS = game:GetService("UserInputService")
 
--- File handling for images
-local function GetCustomAsset(url)
-    local fileName = "uilib/" .. url:match("[^/]+$") -- Extract the file name from URL
-    if not isfile(fileName) then
-        local success, result = pcall(function()
-            return game:HttpGet(url)
-        end)
-        if success then
-            writefile(fileName, result)
-        else
-            warn("Failed to download asset from URL: " .. url)
-            return nil
-        end
-    end
-    return getsynasset(fileName) or getcustomasset(fileName)
-end
-
--- Save Path Setter
-function UILib:SetSavePath(path)
-    SavePath = path
-    if not isfile(SavePath) then
-        writefile(SavePath, "{}") -- Create a default save file if it doesn't exist
-    end
-end
-
--- Save Data
-function UILib:SaveData(data)
-    if SavePath then
-        writefile(SavePath, HttpService:JSONEncode(data))
-    else
-        warn("Save path not set. Call SetSavePath first.")
-    end
-end
-
--- Load Data
-function UILib:LoadData()
-    if SavePath and isfile(SavePath) then
-        local success, result = pcall(function()
-            return HttpService:JSONDecode(readfile(SavePath))
-        end)
-        if success then
-            return result
-        else
-            warn("Failed to load data from save file: " .. result)
-        end
-    end
-    return {}
-end
-
--- Intro Animation with Credit to Aedaniss7
-function UILib:ShowIntro(config)
-    local introFrame = Instance.new("Frame")
-    introFrame.Size = UDim2.new(1, 0, 1, 0)
-    introFrame.BackgroundColor3 = Color3.new(0, 0, 0)
-    introFrame.Parent = CoreGui
-
-    local titleLabel = Instance.new("TextLabel")
-    titleLabel.Text = config.Title or "Welcome"
-    titleLabel.Font = Enum.Font.GothamBold
-    titleLabel.TextSize = 36
-    titleLabel.TextColor3 = Color3.new(1, 1, 1)
-    titleLabel.Size = UDim2.new(1, 0, 0.1, 0)
-    titleLabel.Position = UDim2.new(0, 0, 0.4, 0)
-    titleLabel.BackgroundTransparency = 1
-    titleLabel.Parent = introFrame
-
-    local descLabel = Instance.new("TextLabel")
-    descLabel.Text = config.Description or "Loading..."
-    descLabel.Font = Enum.Font.Gotham
-    descLabel.TextSize = 24
-    descLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)
-    descLabel.Size = UDim2.new(1, 0, 0.05, 0)
-    descLabel.Position = UDim2.new(0, 0, 0.5, 0)
-    descLabel.BackgroundTransparency = 1
-    descLabel.Parent = introFrame
-
-    if config.Image then
-        local introImage = Instance.new("ImageLabel")
-        introImage.Image = GetCustomAsset(config.Image) or ""
-        introImage.Size = UDim2.new(0, 150, 0, 150)
-        introImage.Position = UDim2.new(0.5, -75, 0.2, 0)
-        introImage.BackgroundTransparency = 1
-        introImage.Parent = introFrame
-    end
-
-    -- Credit Label for Creator
-    local creditLabel = Instance.new("TextLabel")
-    creditLabel.Text = "UILib used Created by Aedaniss7"
-    creditLabel.Font = Enum.Font.Gotham
-    creditLabel.TextSize = 18
-    creditLabel.TextColor3 = Color3.new(1, 1, 1)
-    creditLabel.Size = UDim2.new(1, 0, 0.05, 0)
-    creditLabel.Position = UDim2.new(0, 0, 0.85, 0)
-    creditLabel.BackgroundTransparency = 1
-    creditLabel.TextXAlignment = Enum.TextXAlignment.Center
-    creditLabel.Parent = introFrame
-
-    wait(config.Duration or 3)
-
-    introFrame:TweenSize(UDim2.new(1, 0, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Sine, 1, true, function()
-        introFrame:Destroy()
-    end)
-end
-
-
--- Create a Panel
-function UILib:CreatePanel(title, icon)
-    local panel = Instance.new("Frame")
-    panel.Size = UDim2.new(0.3, 0, 0.5, 0)
-    panel.Position = UDim2.new(0.35, 0, 0.25, 0)
-    panel.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+-- Create Panel Function
+function UILib:CreatePanel(properties)
+    local panel = Instance.new("Frame", Instance.new("ScreenGui", game.CoreGui))
+    panel.Name = properties.Title
+    panel.Size = properties.Size or UDim2.new(0, 400, 0, 500)
+    panel.Position = properties.Position or UDim2.new(0, 50, 0, 50)
+    panel.BackgroundColor3 = properties.BackgroundColor or Color3.fromRGB(30, 30, 30)
     panel.BorderSizePixel = 0
-    panel.Parent = CoreGui
+    panel.Visible = true
 
-    local titleBar = Instance.new("Frame")
-    titleBar.Size = UDim2.new(1, 0, 0.1, 0)
-    titleBar.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
-    titleBar.BorderSizePixel = 0
-    titleBar.Parent = panel
-
+    -- Add title
     local titleLabel = Instance.new("TextLabel")
-    titleLabel.Text = title
+    titleLabel.Size = UDim2.new(1, 0, 0, 30)
+    titleLabel.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    titleLabel.Text = properties.Title or "Panel"
+    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     titleLabel.Font = Enum.Font.GothamBold
-    titleLabel.TextSize = 20
-    titleLabel.TextColor3 = Color3.new(1, 1, 1)
-    titleLabel.Size = UDim2.new(0.8, 0, 1, 0)
-    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
-    titleLabel.Parent = titleBar
+    titleLabel.TextSize = 16
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Center
+    titleLabel.Parent = panel
 
-    local closeButton = Instance.new("TextButton")
-    closeButton.Text = "X"
-    closeButton.Font = Enum.Font.GothamBold
-    closeButton.TextSize = 20
-    closeButton.TextColor3 = Color3.new(1, 0, 0)
-    closeButton.Size = UDim2.new(0.2, 0, 1, 0)
-    closeButton.Position = UDim2.new(0.8, 0, 0, 0)
-    closeButton.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
-    closeButton.BorderSizePixel = 0
-    closeButton.Parent = titleBar
+    -- Make panel draggable
+    if properties.Draggable then
+        local dragInput, dragStart, startPos
+        panel.InputBegan:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                dragStart = input.Position
+                startPos = panel.Position
+                dragInput = input
+            end
+        end)
 
-    closeButton.MouseButton1Click:Connect(function()
-        panel:Destroy()
-    end)
+        panel.InputChanged:Connect(function(input)
+            if dragInput and input.UserInputType == Enum.UserInputType.MouseMovement then
+                local delta = input.Position - dragStart
+                panel.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+            end
+        end)
 
-    -- Draggable functionality
-    local dragging, dragInput, dragStart, startPos
-    titleBar.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = true
-            dragStart = input.Position
-            startPos = panel.Position
+        panel.InputEnded:Connect(function(input)
+            if input == dragInput then
+                dragInput = nil
+            end
+        end)
+    end
 
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
-                    dragging = false
-                end
-            end)
-        end
-    end)
-
-    titleBar.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement then
-            dragInput = input
-        end
-    end)
-
-    UIS.InputChanged:Connect(function(input)
-        if input == dragInput and dragging then
-            local delta = input.Position - dragStart
-            panel.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-        end
-    end)
-
-    return {
-        AddTab = function(tabTitle, tabIcon)
-            -- Logic for tabs
-        end
-    }
+    return panel
 end
 
+-- Create Tab Function
+function UILib:CreateTab(properties)
+    local tab = Instance.new("Frame")
+    tab.Name = properties.Title
+    tab.Size = UDim2.new(1, 0, 1, 0)
+    tab.BackgroundTransparency = 1
+    tab.Visible = true
+
+    local tabButton = Instance.new("TextButton")
+    tabButton.Size = UDim2.new(0, 120, 0, 30)
+    tabButton.Position = UDim2.new(0, 0, 0, 30)
+    tabButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    tabButton.Text = properties.Title or "Tab"
+    tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    tabButton.Font = Enum.Font.GothamBold
+    tabButton.TextSize = 14
+    tabButton.Parent = tab
+
+    -- Tab button click functionality
+    tabButton.MouseButton1Click:Connect(function()
+        for _, child in ipairs(tab.Parent:GetChildren()) do
+            if child:IsA("Frame") then
+                child.Visible = false
+            end
+        end
+        tab.Visible = true
+    end)
+
+    tab.Parent = properties.Panel
+    return tab
+end
+
+-- Create Section Function
+function UILib:CreateSection(properties)
+    local section = Instance.new("Frame")
+    section.Name = properties.Title
+    section.Size = UDim2.new(1, 0, 0, properties.SizeY or 50)
+    section.Position = properties.Position or UDim2.new(0, 0, 0, 60)
+    section.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    section.BorderSizePixel = 0
+    section.Visible = true
+    section.Parent = properties.Tab
+
+    -- Section Title
+    local sectionTitle = Instance.new("TextLabel")
+    sectionTitle.Size = UDim2.new(1, 0, 0, 20)
+    sectionTitle.Text = properties.Title
+    sectionTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    sectionTitle.Font = Enum.Font.GothamBold
+    sectionTitle.TextSize = 14
+    sectionTitle.BackgroundTransparency = 1
+    sectionTitle.TextXAlignment = Enum.TextXAlignment.Left
+    sectionTitle.Parent = section
+
+    -- Add methods to Section to handle different UI elements
+    section.AddButton = function(info)
+        local button = Instance.new("TextButton")
+        button.Size = UDim2.new(1, 0, 0, 30)
+        button.Position = UDim2.new(0, 0, 0, 25)
+        button.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+        button.Text = info.Title
+        button.TextColor3 = Color3.fromRGB(255, 255, 255)
+        button.Font = Enum.Font.GothamBold
+        button.TextSize = 14
+        button.MouseButton1Click:Connect(info.Callback)
+        button.Parent = section
+    end
+
+    section.AddToggle = function(info)
+        local toggle = Instance.new("TextButton")
+        toggle.Size = UDim2.new(0, 50, 0, 30)
+        toggle.Position = UDim2.new(0, 0, 0, 25)
+        toggle.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+        toggle.Text = info.Default and "ON" or "OFF"
+        toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+        toggle.Font = Enum.Font.GothamBold
+        toggle.TextSize = 14
+        toggle.MouseButton1Click:Connect(function()
+            local newState = toggle.Text == "OFF"
+            toggle.Text = newState and "ON" or "OFF"
+            info.Callback(newState)
+        end)
+        toggle.Parent = section
+    end
+
+    section.AddSlider = function(info)
+        local slider = Instance.new("Frame")
+        slider.Size = UDim2.new(1, 0, 0, 30)
+        slider.Position = UDim2.new(0, 0, 0, 25)
+        slider.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+        slider.Parent = section
+        
+        local sliderButton = Instance.new("TextButton")
+        sliderButton.Size = UDim2.new(0, 100, 0, 20)
+        sliderButton.Position = UDim2.new(0.5, -50, 0, 5)
+        sliderButton.Text = tostring(info.Default)
+        sliderButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        sliderButton.Font = Enum.Font.GothamBold
+        sliderButton.TextSize = 14
+        sliderButton.Parent = slider
+
+        sliderButton.MouseButton1Click:Connect(function()
+            local value = sliderButton.Position.X.Offset / slider.Size.X.Offset * (info.Max - info.Min) + info.Min
+            info.Callback(value)
+            sliderButton.Text = tostring(value)
+        end)
+    end
+
+    section.AddNumberInput = function(info)
+        local input = Instance.new("TextBox")
+        input.Size = UDim2.new(1, 0, 0, 30)
+        input.Position = UDim2.new(0, 0, 0, 25)
+        input.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+        input.Text = tostring(info.Default)
+        input.TextColor3 = Color3.fromRGB(255, 255, 255)
+        input.Font = Enum.Font.GothamBold
+        input.TextSize = 14
+        input.Parent = section
+        input.FocusLost:Connect(function()
+            info.Callback(tonumber(input.Text))
+        end)
+    end
+
+    section.AddStringInput = function(info)
+        local input = Instance.new("TextBox")
+        input.Size = UDim2.new(1, 0, 0, 30)
+        input.Position = UDim2.new(0, 0, 0, 25)
+        input.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+        input.Text = info.Default
+        input.TextColor3 = Color3.fromRGB(255, 255, 255)
+        input.Font = Enum.Font.GothamBold
+        input.TextSize = 14
+        input.Parent = section
+        input.FocusLost:Connect(function()
+            info.Callback(input.Text)
+        end)
+    end
+
+    return section
+end
+
+-- Show Intro Function
+function UILib:ShowIntro(properties)
+    -- Create intro UI (omitted for simplicity)
+end
+
+-- Export UILib
 return UILib
