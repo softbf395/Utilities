@@ -65,7 +65,7 @@ function utility.SetupMoves(moves)
                     tool.Name = move.Name
                 end
                 
-            if tool.Name == move.Base and not tool:FindFirstChild("EventBoundMove") then
+            if tool.Name == move.Base then
                 tool:SetAttribute("CustomName", true)
                 tool.Activated:Connect(function()
                     if typeof(move.Callback) == "function" and tool.Name==move.Name then
@@ -76,8 +76,8 @@ function utility.SetupMoves(moves)
                         wait(0.1)
                         
                         tool:SetAttribute("CustomName", true)
-                    else
-                        notif("Error:", "Invalid callback for move: " .. move.Name)
+                            else
+                                print("On Cooldown! or invalid callback!")
                     end
                 end)
                 Instance.new("BoolValue", tool).Name="EventBoundMove"
