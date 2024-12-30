@@ -62,13 +62,14 @@ function utility.SetupMoves(moves)
     for i, move in ipairs(moves) do
         for _, tool in ipairs(backpack:GetChildren()) do
                 if tool.Name == move.Base and tool:GetAttribute("CustomName") then
+                    wait(0.5)
                     tool.Name = move.Name
                 end
                 
             if tool.Name == move.Base and not tool:FindFirstChild("EventBoundMove") then
                 tool:SetAttribute("CustomName", true)
                 tool.Activated:Connect(function()
-                    if typeof(move.Callback) == "function" then
+                    if typeof(move.Callback) == "function" and tool.Name==move.Name then
                         tool:SetAttribute("CustomName", false)
                         tool.Name = move.Base
                         move.Callback()
@@ -84,13 +85,15 @@ function utility.SetupMoves(moves)
         end
             for _, tool in ipairs(game.Players.LocalPlayer.Character:GetChildren()) do
                 if tool.Name == move.Base and tool:GetAttribute("CustomName") then
+                    wait(0.5)
                     tool.Name = move.Name
+                    
                 end
                 
             if tool.Name == move.Base and not tool:FindFirstChild("EventBoundMove") then
                 tool:SetAttribute("CustomName", true)
                 tool.Activated:Connect(function()
-                    if typeof(move.Callback) == "function" then
+                    if typeof(move.Callback) == "function" and tool.Name==move.Name then
                         tool:SetAttribute("CustomName", false)
                         tool.Name = move.Base
                         move.Callback()
