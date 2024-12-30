@@ -82,6 +82,29 @@ function utility.SetupMoves(moves)
                 Instance.new("BoolValue", tool).Name="EventBoundMove"
             end
         end
+            for _, tool in ipairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if not tool:IsA("Tool") then return end
+                if tool.Name == move.Base and tool:GetAttribute("CustomName") then
+                    tool.Name = move.Name
+                end
+                
+            if tool.Name == move.Base and not tool:FindFirstChild("EventBoundMove") then
+                tool:SetAttribute("CustomName", true)
+                tool.Activated:Connect(function()
+                    if typeof(move.Callback) == "function" then
+                        tool:SetAttribute("CustomName", false)
+                        tool.Name = move.Base
+                        move.Callback()
+                        wait(0.1)
+                        
+                        tool:SetAttribute("CustomName", true)
+                    else
+                        notif("Error:", "Invalid callback for move: " .. move.Name)
+                    end
+                end)
+                Instance.new("BoolValue", tool).Name="EventBoundMove"
+            end
+        end
     end
     end
 end
