@@ -60,6 +60,9 @@ function utility.SetupMoves(moves)
     while wait() do
     for i, move in ipairs(moves) do
         for _, tool in ipairs(backpack:GetChildren()) do
+                if tool.Name == move.Base and tool:GetAttribute("CustomName") then
+                    tool.Name = move.Name
+                end
             if tool.Name == move.Base and not tool:GetAttribute("EventBound") then
                 tool:SetAttribute("CustomName", true)
                 tool.Activated:Connect(function()
