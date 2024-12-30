@@ -27,7 +27,7 @@ function utility.SetupMoves(moves)
   while wait() do
     for i, move in ipairs(moves) do
       wait()
-      for _, tool in ipairs(game.Players.LocalPlayer.Backpack) do
+      for _, tool in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
         wait()
         if tool.Name==move.Base then
           tool.Name=move.Name
