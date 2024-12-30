@@ -56,6 +56,7 @@ function utility.SetupMoves(moves)
 
     backpack.ChildAdded:Connect(function(child)
         child:SetAttribute("CustomName", true)
+            
     end)
     while wait() do
     for i, move in ipairs(moves) do
@@ -63,7 +64,8 @@ function utility.SetupMoves(moves)
                 if tool.Name == move.Base and tool:GetAttribute("CustomName") then
                     tool.Name = move.Name
                 end
-            if tool.Name == move.Base and not tool:GetAttribute("EventBound") then
+                
+            if tool.Name == move.Base and not tool:FindFirstChild("EventBoundMove") then
                 tool:SetAttribute("CustomName", true)
                 tool.Activated:Connect(function()
                     if typeof(move.Callback) == "function" then
@@ -71,13 +73,13 @@ function utility.SetupMoves(moves)
                         tool.Name = move.Base
                         move.Callback()
                         wait(0.1)
-                        tool.Name = move.Name
+                        
                         tool:SetAttribute("CustomName", true)
                     else
                         notif("Error:", "Invalid callback for move: " .. move.Name)
                     end
                 end)
-                tool:SetAttribute("EventBound", true)
+                Instance.new("BoolValue", tool).Name="EventBoundMove"
             end
         end
     end
