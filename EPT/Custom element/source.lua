@@ -30,8 +30,10 @@ function utility.SetupMoves(moves)
       for _, tool in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
         wait()
         if tool.Name==move.Base then
-          tool.Name=move.Name
-          tool.Activated:Connect(move.Callback)
+          if tool:GetAttribute("CustomName") then
+             tool.Name=move.Name
+          end
+          tool.Activated:Connect(function() tool:SetAttribute("CustomName", false) tool.Name=move.Base move.Callback wait(.1) tool.Name=move.Name tool:SetAttribute("CustomName", true) end)
         end
       end
     end
