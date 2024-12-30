@@ -7,43 +7,78 @@ function notif(title, desc)
 end
 
 function utility.notif(title, desc)
-    game:GetService("StarterGui"):SetCore("SendNotification", { Title = title or "Error", Text = desc or "Error" })
+    notif(title, desc)
 end
 
 function utility.ForElement(element)
-  TycoonUI = game.Players.LocalPlayer.Character.TycoonUI
-  if TycoonUI.TextLabel.Text == element then
-    Element=element
-    notif("Custom Element by:","Aedaniss7")
-  else
-    notif("Error:","Element Chosen is not: "..element)
-  end
+    TycoonUI = game.Players.LocalPlayer.Character:FindFirstChild("TycoonUI")
+    if not TycoonUI or not TycoonUI:FindFirstChild("TextLabel") then
+        notif("Error:", "TycoonUI or TextLabel not found")
+        return
+    end
+    if TycoonUI.TextLabel.Text == element then
+        Element = element
+        notif("Custom Element by:", "Aedaniss7")
+    else
+        notif("Error:", "Element Chosen is not: " .. element)
+    end
 end
 
 function utility.Setup(info)
-  TycoonUI.TextLabel.Text=info.ElementName
-  TycoonUI.TextLabel.TextColor3=info.Color
+    if not info or not info.ElementName or not info.Color then
+        notif("Error:", "Invalid info provided")
+        return
+    end
+    TycoonUI = game.Players.LocalPlayer.Character:FindFirstChild("TycoonUI")
+    if not TycoonUI or not TycoonUI:FindFirstChild("TextLabel") then
+        notif("Error:", "TycoonUI or TextLabel not found")
+        return
+    end
+    TycoonUI.TextLabel.Text = info.ElementName
+    TycoonUI.TextLabel.TextColor3 = info.Color
 end
 
 function utility.SetupMoves(moves)
-  for i, move in ipairs(moves) do
-    notif("Move "..i.." ("..move.Base..")".." is ",move.Name)
-  end
-    game.Players.LocalPlayer.Backpack.ChildAdded:Connect(function(child) child:SetAttribute("CustomName", true) end)
-  while wait() do
-    for i, move in ipairs(moves) do
-      wait()
-      for _, tool in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-        wait()
-        if tool.Name==move.Base then
-          if tool:GetAttribute("CustomName") then
-             tool.Name=move.Name
-          end
-          tool.Activated:Connect(function() tool:SetAttribute("CustomName", false) tool.Name=move.Base move.Callback wait(.1) tool.Name=move.Name tool:SetAttribute("CustomName", true) end)
-        end
-      end
+    if typeof(moves) ~= "table" then
+        notif("Error:", "Invalid moves list")
+        return
     end
-  end
+
+    for i, move in ipairs(moves) do
+        notif("Move " .. i .. " (" .. move.Base .. ")" .. " is ", move.Name)
+    end
+
+    local backpack = game.Players.LocalPlayer:FindFirstChild("Backpack")
+    if not backpack then
+        notif("Error:", "Backpack not found")
+        return
+    end
+
+    backpack.ChildAdded:Connect(function(child)
+        child:SetAttribute("CustomName", true)
+    end)
+    while wait() do
+    for i, move in ipairs(moves) do
+        for _, tool in ipairs(backpack:GetChildren()) do
+            if tool.Name == move.Base and not tool:GetAttribute("EventBound") then
+                tool:SetAttribute("CustomName", true)
+                tool.Activated:Connect(function()
+                    if typeof(move.Callback) == "function" then
+                        tool:SetAttribute("CustomName", false)
+                        tool.Name = move.Base
+                        move.Callback()
+                        wait(0.1)
+                        tool.Name = move.Name
+                        tool:SetAttribute("CustomName", true)
+                    else
+                        notif("Error:", "Invalid callback for move: " .. move.Name)
+                    end
+                end)
+                tool:SetAttribute("EventBound", true)
+            end
+        end
+    end
+    end
 end
 
-return utility 
+return utility
