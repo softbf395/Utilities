@@ -40,4 +40,4 @@ function utility.SetupMoves(moves)
     end
   end
 end
-return utility
+return utility 
