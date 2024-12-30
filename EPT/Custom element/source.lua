@@ -22,8 +22,9 @@ function utility.Setup(info)
 end
 function utility.SetupMoves(moves)
   for i, move in ipairs(moves) do
-    notif("Move "..i.." is "..move.Name)
+    notif("Move "..i.." ("..move.Base..")".." is ",move.Name)
   end
+    game.Players.LocalPlayer.Backpack.ChildAdded:Connect(function(child) child:SetAttribute("CustomName", true) end)
   while wait() do
     for i, move in ipairs(moves) do
       wait()
