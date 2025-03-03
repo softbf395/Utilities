@@ -6,7 +6,7 @@ local SharedScriptsUtil = {}
 
 -- Unique JobID for server isolation
 local JobID = game.JobId
-local ServerURL = "wss://shared-script-websocket.glitch.me"  -- Your Glitch WebSocket URL
+local ServerURL = "ws://shared-script-websocket.glitch.me"  -- Your Glitch WebSocket URL
 
 -- Store executed scripts
 local ExecutedScripts = {}
