@@ -1,4 +1,4 @@
-local websocket = websocket or error("WebSockets not supported!")
+local websocket = WebSocket or error("WebSockets not supported!")
 local HttpService = game:GetService("HttpService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
