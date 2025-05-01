@@ -195,7 +195,7 @@ function utility:ChrSel(name, icon, selNotice, callback)
     end
     bald.IconButton.MouseButton1Click:Connect(function()
             if selNotice~=nil then
-                notice("NOTICE", selNotice
+                notif("NOTICE", selNotice)
             end
                 game.Players.LocalPlayer.Character:WaitForChild("Communicate"):FireServer(args)
                 p.Character:FindFirstChildOfClass("Humanoid").Health=0
