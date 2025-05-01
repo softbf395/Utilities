@@ -73,14 +73,19 @@ function customSlotCD(CD, MID)
 end
 
 local tools = {}
-
+local chrName
 function utility:ReqChr(ChrName)
     if ChrName == "Saitama" then
+        chrName="Bald"
         tools = { "Normal Punch", "Consecutive Punches", "Shove", "Uppercut" }
     elseif ChrName == "Cyborg" then
+        chrName="Cyborg"
         tools = { [1] = "Machine Gun Blows", [2] = "Ignition Burst", [3] = "Blitz Shot", [4] = "Jet Dive" }
+    elseif ChrName == "Hunter" then
+        chrName="Hunter"
+        tools = { [1] = "Flowing Water", [2] = "Lethal Whirlwind Stream", [3] = "Hunter's Grasp", [4] = "Prey's Peril" }
     else
-        notif("Error:", ChrName .. " is not in the list of current characters: Cyborg, Saitama")
+        notif("Error:", ChrName .. " is not in the list of current characters: Cyborg, Saitama, Hunter")
     end
 end
 function utility:Create(MID, Callback, CD, MName)
@@ -174,5 +179,29 @@ function utility:SFX(music, url, path)
     Sound.SoundId = audioID
     return Sound
 end
+local p=game.Players.LocalPlayer
+function utility:ChrSel(name, icon, selNotice, callback)
+    local bald=p.PlayerGui.TopbarPlus:FindFirstChild("Bald", true):Clone()
+    bald.IconButton.IconLabel.Text=name
+    local args = {
+["Goal"] = "Change Character",
+["Character"] = chrName
+}
 
+    if type(icon)=="number" then
+        bald.IconButton.IconImage.Image="rbxassetid://"..icon
+    else
+        bald.IconButton.IconImage.Image=icon
+    end
+    bald.IconButton.MouseButton1Click:Connect(function()
+            if selNotice~=nil then
+                notice("NOTICE", selNotice
+            end
+                game.Players.LocalPlayer.Character:WaitForChild("Communicate"):FireServer(args)
+                p.Character:FindFirstChildOfClass("Humanoid").Health=0
+                wait(6)
+            callback()
+            end)
+        callback()
+    end
 return utility
