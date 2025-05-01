@@ -204,5 +204,6 @@ function utility:ChrSel(name, icon, selNotice, callback)
             callback()
             end)
         callback()
+    bald.Parent=p.PlayerGui.TopbarPlus:FindFirstChild("Bald", true).Parent
     end
 return utility
