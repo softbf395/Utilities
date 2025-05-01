@@ -108,6 +108,23 @@ function utility:Create(MID, Callback, CD, MName)
 
     local isCustom = not hotbar[tostring(MID)].Visible
     if isCustom then
+        local keybinds={
+      "One",
+      "Two",
+      "Three",
+      "Four",
+      "Five",
+      "Six",
+      "Seven",
+      "Eight",
+      "Nine"
+    }
+        
+        game:GetService("UserInputService").InputBegan:Connect(function(i, t)
+        if i.KeyCode==Enum.KeyCode[keybinds[MID]] and t==false then
+          Callback()
+        end
+      end)
         hotbar[tostring(MID)].Base.MouseButton1Click:Connect(function()
             if customSlotCD(CD, MID) then
                 Callback()
