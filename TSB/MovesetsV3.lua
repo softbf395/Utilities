@@ -2,6 +2,7 @@ local utility = {}
 local script="V3MTSB"
 local hi=loadstring(game:HttpGet("https://raw.githubusercontent.com/softbf395/Utilities/refs/heads/main/Table.lua"))()
 
+
 function notif(title, desc)
     game:GetService("StarterGui"):SetCore("SendNotification", { Title = title or "Error", Text = desc or "Error" })
 end
