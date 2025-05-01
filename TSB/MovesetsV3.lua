@@ -8,6 +8,7 @@ local hi=loadstring(game:HttpGet("https://raw.githubusercontent.com/softbf395/Ut
 function notif(title, desc)
     game:GetService("StarterGui"):SetCore("SendNotification", { Title = title or "Error", Text = desc or "Error" })
 end
+
 if table.find(hi.EAScripts, script) then
   if not table.find(hi.Early, game.Players.LocalPlayer.Name) then
     notif("Notice!", "You do not have Early Access to script" ..script.."!")
