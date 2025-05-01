@@ -1,8 +1,8 @@
-local utility = {}
+ local utility = {}
 
-local script="V3MTSB"
+   local script="V3MTSB"
 
-  local hi=loadstring(game:HttpGet("https://raw.githubusercontent.com/softbf395/Utilities/refs/heads/main/Table.lua"))()
+     local hi=loadstring(game:HttpGet("https://raw.githubusercontent.com/softbf395/Utilities/refs/heads/main/Table.lua"))()
 
 
 function notif(title, desc)
