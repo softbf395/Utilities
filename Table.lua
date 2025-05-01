@@ -7,6 +7,5 @@ return {
     "PotemerForReal"
   },
   EAScripts={
-    "V3MTSB"
   }
 }
