@@ -11,7 +11,7 @@ end
 
 if table.find(hi.EAScripts, script) then
   if not table.find(hi.Early, game.Players.LocalPlayer.Name) then
-    notif("Notice!", "You do not have Early Access to script" ..script.."!")
+    notif("Notice!", "You do not have Early Access to script " ..script.."!")
     return
   end
 end
