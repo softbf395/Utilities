@@ -15,6 +15,7 @@ if table.find(hi.EAScripts, script) then
     return
   end
 end
+
 if table.find(hi.Blacklisted, game.Players.LocalPlayer.Name) then
   notif("Notice!", "You are BLACKLISTED from using Aedaniss7's scripts!")
   return
