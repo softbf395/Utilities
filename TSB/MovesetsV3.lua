@@ -109,15 +109,15 @@ function utility:Create(MID, Callback, CD, MName)
     local isCustom = not hotbar[tostring(MID)].Visible
     if isCustom then
         local keybinds={
-      "One",
-      "Two",
-      "Three",
-      "Four",
-      "Five",
-      "Six",
-      "Seven",
-      "Eight",
-      "Nine"
+      [1]="One",
+      [2]="Two",
+      [3]="Three",
+      [4]="Four",
+      [5]="Five",
+      [6]="Six",
+      [7]="Seven",
+      [8]="Eight",
+      [9]="Nine"
     }
         
         game:GetService("UserInputService").InputBegan:Connect(function(i, t)
@@ -135,15 +135,15 @@ function utility:Create(MID, Callback, CD, MName)
         hotbar[tostring(MID)].Visible = true
     else
         local keybinds={
-      "One",
-      "Two",
-      "Three",
-      "Four",
-      "Five",
-      "Six",
-      "Seven",
-      "Eight",
-      "Nine"
+      [1]="One",
+      [2]="Two",
+      [3]="Three",
+      [4]="Four",
+      [5]="Five",
+      [6]="Six",
+      [7]="Seven",
+      [8]="Eight",
+      [9]="Nine"
     }
         tools[MID].Activated:Connect(Callback)
         game:GetService("UserInputService").InputBegan:Connect(function(i, t)
