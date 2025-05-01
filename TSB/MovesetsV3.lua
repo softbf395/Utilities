@@ -127,7 +127,7 @@ function utility:Create(MID, Callback, CD, MName)
     }
         
         game:GetService("UserInputService").InputBegan:Connect(function(i, t)
-        if i.KeyCode==Enum.KeyCode[keybinds[MID]] and t==false then
+        if i.KeyCode==Enum.KeyCode[keybinds[MID]] then
           Callback()
         end
       end)
@@ -153,7 +153,7 @@ function utility:Create(MID, Callback, CD, MName)
     }
         --game.Players.LocalPlayer.Backpack[tools[MID]].Activated:Connect(Callback)
         game:GetService("UserInputService").InputBegan:Connect(function(i, t)
-        if i.KeyCode==Enum.KeyCode[keybinds[MID]] and t==false then
+        if i.KeyCode==Enum.KeyCode[keybinds[MID]] then
           Callback()
         end
       end)
@@ -206,4 +206,9 @@ function utility:ChrSel(name, icon, selNotice, callback)
         callback()
     bald.Parent=p.PlayerGui.TopbarPlus:FindFirstChild("Bald", true).Parent
     end
+function utility:Bind(Animation, Callback)
+    p.Character.Humanoid.Animator.AnimationPlayed:Connect(function(animTrack)
+            Callback(animTrack)
+    end)
+end
 return utility
