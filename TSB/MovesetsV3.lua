@@ -200,7 +200,8 @@ function utility:ChrSel(name, icon, selNotice, callback)
             end
                 game.Players.LocalPlayer.Character:WaitForChild("Communicate"):FireServer(args)
                 p.Character:FindFirstChildOfClass("Humanoid").Health=0
-                wait(6)
+                wait(5)
+            hotbar = game.Players.LocalPlayer.PlayerGui.Hotbar.Backpack.Hotbar
             callback()
             end)
         callback()
