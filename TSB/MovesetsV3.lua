@@ -20,6 +20,7 @@ if table.find(hi.Blacklisted, game.Players.LocalPlayer.Name) then
   notif("Notice!", "You are BLACKLISTED from using Aedaniss7's scripts!")
   return
 end
+
 notif("NOTICE:","i noticed avocado alien (@avocado_alien on yt) pressed activate ult during the TTM showcase, just to note: that will break custom ults")
 function utility:Ult(name, color, onActivation)
     if not color then
