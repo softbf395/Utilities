@@ -193,15 +193,16 @@ function utility:ChrSel(name, icon, selNotice, callback)
     else
         bald.IconButton.IconImage.Image=icon
     end
+    callback()
     bald.IconButton.MouseButton1Click:Connect(function()
             if selNotice~=nil then
-                notice("NOTICE", selNotice
+                notif("NOTICE", selNotice)
             end
                 game.Players.LocalPlayer.Character:WaitForChild("Communicate"):FireServer(args)
                 p.Character:FindFirstChildOfClass("Humanoid").Health=0
                 wait(6)
             callback()
             end)
-        callback()
+        
     end
 return utility
