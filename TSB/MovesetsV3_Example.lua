@@ -8,4 +8,6 @@ local music=ms:SFX(true, "https://raw.githubusercontent.com/softbf395/Utilities/
 music:Play()
 ms:ReqChr("Saitama" --[[Cyborg]])
 ms:Ult("Ult Name", Color3.fromRGB(255,255,255), function() print("Ult Activated!") end)
-ms:Create("5", --[[move ID, 1 to 15]] function() end, --[[Callback for when used]] 2, --[[Cooldown for custom moves]] "Move Name")
+ms:Create("5", --[[move ID, 1 to 9]] function() end, --[[Callback for when used]] 2, --[[Cooldown for custom moves]] "Move Name")
+
+ms:Create("1", --[[move ID, 1 to 9]] function() print("Hi!!") end, --[[Callback for when used]] 10, --[[Cooldown for custom moves]] "Test")
