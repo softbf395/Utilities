@@ -91,7 +91,7 @@ function utility:ReqChr(ChrName)
 end
 function utility:Create(MID, Callback, CD, MName)
     if tools[1] and type(tools[1]) == "string" then
-        notif("Starting:", MName .. " Custom Moveset, uses Aedaniss7's custom movesets V2 utility")
+        notif("Starting:", MName .. " Custom Moveset, uses Aedaniss7's custom movesets V3 utility")
         for i, moveName in ipairs(tools) do
             if not game.Players.LocalPlayer.Backpack:FindFirstChild(moveName) then
                 notif("Error:", "Holding move " .. moveName .. " or aren't the character that has the move!")
@@ -99,7 +99,7 @@ function utility:Create(MID, Callback, CD, MName)
             end
             tools[i] = game.Players.LocalPlayer.Backpack[moveName]
         end
-    else
+    elseif not tools[1] then
         notif("Encountered Fatal Error:", ":ReqChr('character') has not been run! This is vital for setting up moves!")
         return
     end
@@ -208,7 +208,9 @@ function utility:ChrSel(name, icon, selNotice, callback)
     end
 function utility:Bind(Animation, Callback)
     p.Character.Humanoid.Animator.AnimationPlayed:Connect(function(animTrack)
-            Callback(animTrack)
+            if animTrack.Animation.AnimationId==Animation then
+                Callback(animTrack)
+            end
     end)
 end
 return utility
