@@ -37,7 +37,7 @@ function utility:Ult(name, color, onActivation)
     ultText.Text = name
     ultBar.ImageColor3 = color
     if onActivation then
-        ultText.Parent.TextButton.MouseButton1Click:Connect(function()
+        ultText.Parent.ImageButton.MouseButton1Click:Connect(function()
             local canUse = ultText.Parent.Ult.Visible
             if canUse then
                 onActivation()
