@@ -32,7 +32,7 @@ function utility:Ult(name, color, onActivation)
         return
     end
     
-    local ultText = game.Players.LocalPlayer.PlayerGui.ScreenGui.MagicHealth.TextLabel
+    local ultText = game.Players.LocalPlayer.PlayerGui.Bar.MagicHealth.TextLabel
     local ultBar = ultText.Parent.Health.Bar.Bar
     ultText.Text = name
     ultBar.ImageColor3 = color
