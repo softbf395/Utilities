@@ -53,6 +53,49 @@ function utility:Ult(name, color, onActivation)
       end)
     end
 end
+local animations={}
+function utility:PlayAnimation(id, speed)
+	local chr = game.Players.LocalPlayer.Character
+	if not chr then return end
+
+	local hum = chr:FindFirstChildOfClass("Humanoid")
+	if not hum then return end
+
+	animations[hum] = animations[hum] or {}
+
+	local animId = "rbxassetid://" .. tostring(id)
+	local cached = animations[hum]
+	local animTrack
+
+	if cached[animId] then
+		animTrack = cached[animId]
+	else
+		local animationInstance = Instance.new("Animation")
+		animationInstance.AnimationId = animId
+		animTrack = hum:LoadAnimation(animationInstance)
+		animTrack.Looped = false
+		cached[animId] = animTrack
+	end
+
+	animTrack:AdjustSpeed(speed or 1)
+
+	-- Stop other animations
+	for _, track in ipairs(hum:GetPlayingAnimationTracks()) do
+		if track.Animation.AnimationId ~= animId then
+			track:Stop()
+		end
+	end
+
+	animTrack:Play()
+
+	-- Optional cleanup after animation ends
+	--[[coroutine.wrap(function()
+		while animTrack.IsPlaying and animTrack.TimePosition < animTrack.Length - 0.5 do
+			task.wait()
+		end
+		-- Optionally remove the animation from cache here if it's not to be reused
+	end)()]]
+end
 
 local hotbar = game.Players.LocalPlayer.PlayerGui.Hotbar.Backpack.Hotbar
 local customCooldowns = { ["0"] = math.huge }
