@@ -249,6 +249,27 @@ function utility:Create(MID, Callback, CD, MName)
     end
 end
 
+function utility:Bind(animationId, callback) -- forgot to implement this sorry VVVVVV
+	local chr = game.Players.LocalPlayer.Character
+	if not chr then return end
+
+	local hum = chr:FindFirstChildOfClass("Humanoid")
+	if not hum then return end
+
+    local animator = hum:FindFirstChildOfClass("Animator")
+    if not animator then
+        animator = Instance.new("Animator", hum)
+    end
+
+	animator.AnimationPlayed:Connect(function(animTrack)
+        local playedId = string.match(animTrack.Animation.AnimationId, "%d+") -- Extract the number ID
+	animationId = string.match(animationId, "%d+") -- Extract numbers from this just incase.
+
+        if tonumber(playedId) == animationId then -- Compare as numbers
+            callback(animTrack)
+        end
+	end)
+end --forgot to implement this sorry ^^^^
 function utility:SFX(music, url, path)
     if not isfile(path) then
         writefile(path, game:HttpGet(url))
