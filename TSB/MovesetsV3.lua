@@ -8,7 +8,21 @@
 function notif(title, desc)
     game:GetService("StarterGui"):SetCore("SendNotification", { Title = title or "Error", Text = desc or "Error" })
 end
-
+function VFX(path, link)
+	if not isfile(path) then
+		if link then
+			writefile(path, game:HttpGet(link))
+		end
+	end
+	if isfile(path) then
+		local assetLoad=LoadCustomInstance(path)
+		if assetLoad.ClassName=='Model' then
+			return assetLoad:FindFirstChildOfClass("BasePart")
+		else
+			return assetLoad
+		end
+	end
+end
 if table.find(hi.EAScripts, script) then
   if not table.find(hi.Early, game.Players.LocalPlayer.Name) then
     notif("Notice!", "You do not have Early Access to script " ..script.."!")
