@@ -8,7 +8,7 @@
 function notif(title, desc)
     game:GetService("StarterGui"):SetCore("SendNotification", { Title = title or "Error", Text = desc or "Error" })
 end
-function VFX(path, link)
+function ImportVFX(path, link)
 	if not isfile(path) then
 		if link then
 			writefile(path, game:HttpGet(link))
