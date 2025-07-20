@@ -1,6 +1,6 @@
 local Moveset="T"
 local ms=loadstring(game:HttpGet("https://raw.githubusercontent.com/softbf395/Utilities/refs/heads/main/TSB/MovesetsV3.lua"))()
-ms:ReqChr("Saitama" --[[Cyborg]])
+ms:ReqChr("Saitama" --[[Cyborg, Hunter, HunterMastery, Ninja, Blade, Bat, Purple, Esper, KJ]])
 --local SFXM1=ms:SFX(false, "url", "path")
 --local SFXM2=ms:SFX(false, "url", "path")
 --local SFXM3=ms:SFX(false, "url", "path")
