@@ -147,6 +147,27 @@ function utility:ReqChr(ChrName)
     elseif ChrName == "Hunter" then
         chrName="Hunter"
         tools = { [1] = "Flowing Water", [2] = "Lethal Whirlwind Stream", [3] = "Hunter's Grasp", [4] = "Prey's Peril" }
+	elseif ChrName == "Purple" then
+        chrName="Purple"
+        tools = { "Head First" }
+		elseif ChrName == "Bat" then
+        chrName="Batter"
+        tools = { "Homerun" }
+		elseif ChrName == "Blade" then
+        chrName="Blade"
+        tools = { "Quick Slice" }
+		elseif ChrName == "Esper" then
+        chrName="Esper"
+        tools = { "Crushing Pull" }
+		elseif ChrName == "HunterMastery" then
+        chrName="HunterMastery"
+        tools = { "Crowd Buster" }
+		elseif ChrName == "KJ" then
+        chrName="KJ"
+        tools = { "Ravage" }
+		elseif ChrName == "Ninja" then
+        chrName="Ninja"
+        tools = { "Scatter" }
     else
         notif("Error:", ChrName .. " is not in the list of current characters: Cyborg, Saitama, Hunter")
     end
